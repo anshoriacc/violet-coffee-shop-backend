@@ -9,11 +9,11 @@ const createUser = (req, res) => {
     const { body } = req
     authModel
         .createUser(body)
-        .then(({ result }) => {
-            response(res, { data: result, status: 200, masage: 'Sign Up Success' })
+        .then((result)  => {
+            response(res, { data: result, status: 200, message: 'Sign Up Success' })
         })
-        .catch(({ error }) => {
-            response(res, { status: 500, masage: 'Terjadi Error', error })
+        .catch( (error) => {
+            response(res, { status: 500, message: 'Terjadi Error', error })
         })
 }
 

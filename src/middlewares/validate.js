@@ -1,4 +1,4 @@
-const httpResponse = require("../helper/response");
+const response = require("../helper/response");
 
 const register = (req, res, next) => {
   const { body } = req;
@@ -7,7 +7,7 @@ const register = (req, res, next) => {
   const isBodyValid =
     registerBody.filter((property) => !bodyProperty.includes(property))
       .length == 0 ? true : false;
-  if (!isBodyValid) return httpResponse(res, 400, "Invalid Body");
+  if (!isBodyValid) return response(res,{ status:400, message: "Invalid Body"});
   next();
 };
 
