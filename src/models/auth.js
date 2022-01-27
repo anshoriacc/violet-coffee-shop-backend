@@ -25,7 +25,7 @@ const createUser = (body) => {
                     }
                     db.query(sqlQuery, [bodyWithHashedPass], (error, result) => {
                         if (error) reject({ status: 500, error })
-                        if (typeof phone !== 'number') reject({ status: 401, err: 'Harus Number' })
+                        if (typeof phone !== 'number') reject({ status: 401, error: 'Harus Number' })
 
                         resolve({ status: 201, result })
                     })
