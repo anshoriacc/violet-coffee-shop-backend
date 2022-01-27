@@ -45,4 +45,23 @@ const createProduct = async (req, res) => {
   }
 };
 
-module.exports = { createProduct };
+const getProductById = async (req, res) => {
+  const { productId } = req.params;
+  try {
+    const result = await productModel.getProductById(productId);
+    return response(res, {
+      data: result,
+      status: 200,
+      massage: "get product by id succes",
+    });
+    // httpResponse(res, await services.createUser(req.body));
+  } catch (error) {
+    return response(res, {
+      status: 500,
+      massage: "Terjadi Error",
+      error,
+    });
+  }
+};
+
+module.exports = { createProduct, getProductById };
