@@ -64,4 +64,23 @@ const getProductById = async (req, res) => {
   }
 };
 
-module.exports = { createProduct, getProductById };
+const deleteById = async (req, res) => {
+  const { productId } = req.params;
+  try {
+    const result = await productModel.deleteById(productId);
+    return response(res, {
+      data: result,
+      status: 200,
+      massage: "delete by id succes",
+    });
+    // httpResponse(res, await services.createUser(req.body));
+  } catch (error) {
+    return response(res, {
+      status: 500,
+      massage: "Terjadi Error",
+      error,
+    });
+  }
+};
+
+module.exports = { createProduct, getProductById,deleteById };
