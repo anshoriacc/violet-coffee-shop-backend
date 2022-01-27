@@ -1,6 +1,6 @@
 // const services = require('./../services/authService')
 const response = require('../helper/response')
-const authModel = require('./../models/auth')
+const authModel = require('../models/auth')
 // const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 // const ServiceResponse = require('../helper/ServiceResponse')
