@@ -1,6 +1,7 @@
-// const { reject } = require('bcrypt/promises')
 const db = require('./../config/db')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+// const { token } = require('morgan')
 
 const createUser = (body) => {
     return new Promise((resolve, reject) => {
@@ -35,20 +36,54 @@ const createUser = (body) => {
     })
 }
 
-// const cekEmail = (email) => {
-//     return new Promise((resolve, reject) => {
-//         // const sqlQuery = `SELECT * FROM users  WHERE email = '${email}' LIMIT 1`;
-//         db.query('SELECT * FROM users  WHERE email = ? LIMIT 1', [email], (error, result) => {
-//             if (!error) {
-//                 resolve(result)
-//             } else {
-//                 reject(error)
-//             }
+const signIn = (body) => {
+    return new Promise((resolve, reject) => {
+        const { email, password } = body
+        const sqlQuery = `SELECT * FROM users WHERE ?`
 
-//         });
-//     })
-// }
+        db.query(sqlQuery, { email }, (err, result) => {
+            if (err) return reject(({ status: 500, err }))
+            if (!email.includes('@gmail.com') && !email.includes('@yahoo.com') && !email.includes('@mail.com')) return reject({ status: 401, err: "Invalid Email" })
+            if (result.length == 0) return reject({ status: 401, err: "Email/Password Salah" })
+
+            bcrypt.compare(password, result[0].password, (err, isValid) => {
+                if (err) return reject({ status: 500, err })
+
+                if (!isValid) return reject({ status: 401, err: 'Email/Password Salah' })
+                const payload = {
+                    // id: result[0].id,
+                    email: result[0].email,
+                    display_name: result[0].display_name,
+                    first_name: result[0].first_name,
+                    last_name: result[0].last_name,
+                    delivery_adress: result[0].delivery_adress,
+                    image: result[0].image,
+                    phone: result[0].phone
+                }
+                const jwtOptions = {
+                    expiresIn: "10h",
+                }
+                jwt.sign(payload, process.env.SECRET_KEY, jwtOptions, (err, token) => {
+                    if (err) reject({ status: 500, err })
+
+                    const { name, email, display_name,
+                        first_name, last_name, delivery_adress,
+                        image, phone, } = result[0]
+
+                    resolve({
+                        status: 200, result: {
+                            name, email, display_name,
+                            first_name, last_name, delivery_adress,
+                            image, phone, token
+                        }
+                    })
+                })
+            })
+        })
+    })
+}
 
 module.exports = {
-    createUser
+    createUser,
+    signIn
 }

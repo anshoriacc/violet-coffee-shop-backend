@@ -22,6 +22,18 @@ const createUser = (req, res) => {
         })
 }
 
+const login = (req, res) => {
+    const { body } = req
+    authModel
+        .signIn(body)
+        .then(({ status, result }) => {
+            response.success(res, status, result)
+        })
+        .catch(({ status, err }) => {
+            response.error(res, status, err)
+        })
+}
+
 // test
 
-module.exports = { createUser }
+module.exports = { createUser, login }
