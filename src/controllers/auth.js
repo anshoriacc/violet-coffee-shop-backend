@@ -1,35 +1,53 @@
-// const services = require('./../services/authService')
 const response = require('../helper/response')
-const authModel = require('../models/auth')
-// const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-// const ServiceResponse = require('../helper/ServiceResponse')
+const authModel = require('./../models/auth')
+const jwt = require("jsonwebtoken");
 
 
-const createUser = async (req,res) => {
-    const  {username, email, password }=req.body
-    try {
-        const cekEmail = await authModel.cekEmail(email)
-        console.log(cekEmail)
-        if(cekEmail.length > 0 ) return response(res, {
-            status: 400,
-            massage:"email already used ",
+
+const createUser = (req, res) => {
+    const { body } = req
+    authModel
+        .createUser(body)
+        .then(({ status, result }) => {
+            const objectResponse = {
+                id: result.insertId,
+                name: body.email,
+                phone: body.phone
+            }
+            response.success(res, status, objectResponse)
         })
-        const passwordHash = await bcrypt.hash(password, 10)
-        const result = await authModel.createUser(username, email, passwordHash)
-          return response(res, {
-            data: result,
-            status: 200,
-            massage:"sign up succes",
+        .catch(({ status, err }) => {
+            response.error(res, status, err)
         })
-        // httpResponse(res, await services.createUser(req.body));
-    } catch (error) {
-        return response(res,{
-            status: 500,
-            massage:"Terjadi Error",
-            error
-        })
-    }
 }
 
-module.exports={createUser}
+const login = (req, res) => {
+    const { body } = req
+    authModel
+        .signIn(body)
+        .then(({ status, result }) => {
+            response.success(res, status, result)
+        })
+        .catch(({ status, err }) => {
+            response.error(res, status, err)
+        })
+}
+
+
+const logout = (req, res) => {
+    const authHeader = req.headers["x-access-token"]
+
+    const jwtOptions = {
+        expiresIn: "1s",
+    }
+
+    jwt.sign(authHeader, "", jwtOptions, (logout) => {
+        if (logout) {
+            res.send({ msg: 'You have been Logged Out' });
+        } else {
+            res.send({ msg: 'Error' });
+        }
+    });
+}
+
+module.exports = { createUser, login, logout }
