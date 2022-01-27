@@ -1,4 +1,4 @@
-const response = require("../helper/response");
+const { response } = require("../helper/response");
 
 const register = (req, res, next) => {
   const { body } = req
