@@ -5,6 +5,7 @@ const db = mysql.createConnection({
   user: process.env.UNAME,
   password: process.env.PASS,
   database: process.env.DB,
+  connectTimeout: 20000
 });
 
 db.connect();
