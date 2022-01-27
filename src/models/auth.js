@@ -1,7 +1,6 @@
 const db = require('./../config/db')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-// const { token } = require('morgan')
 
 const createUser = (body) => {
     return new Promise((resolve, reject) => {
@@ -56,6 +55,7 @@ const signIn = (body) => {
                     display_name: result[0].display_name,
                     first_name: result[0].first_name,
                     last_name: result[0].last_name,
+                    dob: result[0].dob,
                     delivery_adress: result[0].delivery_adress,
                     image: result[0].image,
                     phone: result[0].phone
@@ -67,14 +67,14 @@ const signIn = (body) => {
                     if (err) reject({ status: 500, err })
 
                     const { name, email, display_name,
-                        first_name, last_name, delivery_adress,
-                        image, phone, } = result[0]
+                        first_name, last_name, dob,
+                        delivery_adress, image, phone, } = result[0]
 
                     resolve({
                         status: 200, result: {
                             name, email, display_name,
                             first_name, last_name, delivery_adress,
-                            image, phone, token
+                            dob, image, phone, token
                         }
                     })
                 })
@@ -85,5 +85,5 @@ const signIn = (body) => {
 
 module.exports = {
     createUser,
-    signIn
+    signIn,
 }

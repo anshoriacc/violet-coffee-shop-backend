@@ -5,6 +5,7 @@ const { register, login } = require('./../middlewares/validate')
 
 authRouter.post('/signup', register, authController.createUser)
 authRouter.post('/login', login, authController.login)
+authRouter.put('/logout', authController.logout)
 // .post('/login', authController.login)
 // .delete('/logout',authController.logout)
 
