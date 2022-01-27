@@ -14,4 +14,16 @@ const response = (res, result) => {
   res.status(status).json(resultPrint)
 }
 
-module.exports = response;
+const success = (res, status, data) => {
+  res.status(status).json({ result: data })
+}
+const error = (res, status, data) => {
+  const dataError = new Error(data)
+  res.status(status).json({ err: dataError.message })
+}
+
+module.exports = {
+  response,
+  success,
+  error
+}

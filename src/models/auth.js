@@ -23,14 +23,14 @@ const createUser = (body) => {
                         ...body,
                         password: hashedPass
                     }
-                    db.query(sqlQuery, [bodyWithHashedPass], (error, result) => {
-                        if (error) reject({ status: 500, error })
-                        if (typeof phone !== 'number') reject({ status: 401, error: 'Harus Number' })
+                    db.query(sqlQuery, [bodyWithHashedPass], (err, result) => {
+                        if (err) reject({ status: 500, err })
+                        // if (typeof phone !== 'number') reject({ status: 401, error: 'Harus Number' })
 
                         resolve({ status: 201, result })
                     })
                 })
-                .catch((error) => { reject({ status: 500, error }) })
+                .catch((err) => { reject({ status: 500, err }) })
         })
     })
 }
@@ -49,4 +49,6 @@ const createUser = (body) => {
 //     })
 // }
 
-module.exports = { createUser }
+module.exports = {
+    createUser
+}
