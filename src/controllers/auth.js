@@ -38,7 +38,7 @@ const logout = (req, res) => {
     const authHeader = req.headers["x-access-token"]
 
     const jwtOptions = {
-        expiresIn: "10s",
+        expiresIn: "1s",
     }
 
     jwt.sign(authHeader, "", jwtOptions, (logout) => {
