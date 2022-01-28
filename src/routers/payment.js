@@ -6,6 +6,7 @@ paymentRouter
     .post('/createpayment',paymentController.createPayment)
     .patch('/:paymentId',paymentController.updatePayment)
     .get('/:userId',  paymentController.getPaymentByUserId)
+    .get('/payment-detail/:id',  paymentController.getPaymentById)
     // .get('/',  paymentController.getAllProduct)
     .delete('/:paymentId',  paymentController.deleteById)
 

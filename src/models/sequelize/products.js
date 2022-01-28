@@ -17,12 +17,26 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.INTEGER,
-    size: DataTypes.STRING,
-    delivery_methods: DataTypes.STRING,
     stock: DataTypes.STRING,
     start_delivery: DataTypes.STRING,
     end_delivery: DataTypes.STRING,
     image: DataTypes.STRING,
+    category: DataTypes.STRING,
+    size_1: {
+      type:DataTypes.ENUM,
+      values: ['R', '250gr'],
+    },
+    size_2: {
+      type:DataTypes.ENUM,
+      values: ['L', '300gr'],
+    },
+    size_3: {
+      type:DataTypes.ENUM,
+      values: ['XL', '500gr'],
+    },
+    home_delivery: DataTypes.INTEGER,
+    dine_in: DataTypes.INTEGER,
+    take_away: DataTypes.INTEGER,
     createdAt:{
       field: 'created_at',
       type: DataTypes.DATE
