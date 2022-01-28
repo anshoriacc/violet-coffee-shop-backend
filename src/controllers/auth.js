@@ -32,7 +32,6 @@ const login = (req, res) => {
 
 const logout = (req, res) => {
     const token = req.header("x-access-token")
-    console.log(token);
     authModel
         .logout(token)
         .then(({ status, result }) => {

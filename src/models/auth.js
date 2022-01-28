@@ -6,16 +6,12 @@ const createUser = (body) => {
     return new Promise((resolve, reject) => {
         const { email, password, phone } = body
         const checkemail = `SELECT * FROM users where email = ?`
-
         db.query(checkemail, [email], (err, result) => {
             if (err) return reject({ status: 500, err })
-
             if (email === '' || phone === '' || password === '') return reject({ status: 401, err: "Need Name/email/Password" })
             if (!email.includes('@gmail.com') && !email.includes('@yahoo.com') && !email.includes('@mail.com')) return reject({ status: 401, err: "Invalid Email" }) //salah satu jika mail tidak sesuai
             if (result.length > 0) return reject({ status: 401, err: "Email is Already" })
-
             const sqlQuery = `INSERT INTO users SET ?`
-
             bcrypt
                 .hash(password, 10)
                 .then((hashedPass) => {
@@ -42,10 +38,8 @@ const signIn = (body) => {
             if (err) return reject(({ status: 500, err }))
             if (!email.includes('@gmail.com') && !email.includes('@yahoo.com') && !email.includes('@mail.com')) return reject({ status: 401, err: "Invalid Email" })
             if (result.length == 0) return reject({ status: 401, err: "Email/Password Salah" })
-
             bcrypt.compare(password, result[0].password, (err, isValid) => {
                 if (err) return reject({ status: 500, err })
-
                 if (!isValid) return reject({ status: 401, err: 'Email/Password Salah' })
                 const payload = {
                     id: result[0].id,
@@ -63,11 +57,9 @@ const signIn = (body) => {
                 }
                 jwt.sign(payload, process.env.SECRET_KEY, jwtOptions, (err, token) => {
                     if (err) reject({ status: 500, err })
-
                     const { id, name, email, display_name,
                         first_name, last_name, dob,
                         delivery_adress, image, phone, } = result[0]
-
                     resolve({
                         status: 200, result: {
                             id, name, email, display_name,
