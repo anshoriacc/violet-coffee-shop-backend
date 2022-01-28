@@ -16,6 +16,7 @@ const corsOptions = {
     origin: '*',
   }
 
+  
 server.use('/public', express.static("public"))
 server.use(cors(corsOptions))
 server.use(express.json());
