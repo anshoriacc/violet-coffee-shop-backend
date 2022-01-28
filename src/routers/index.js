@@ -1,13 +1,13 @@
 const express = require("express")
 const mainRouter = express.Router()
-// const userRouter = require('./users.js')
+const authRouter = require('./auth')
+const userRouter = require('./user')
 const productRouter = require('./product.js')
 // const historyRouter = require('./history.js')
-const authRouter = require('./auth')
 
-// mainRouter.use('/users', userRouter)
-mainRouter.use('/product',productRouter)
-// mainRouter.use('/history',historyRouter)
 mainRouter.use('/auth', authRouter)
+mainRouter.use('/user', userRouter)
+mainRouter.use('/product', productRouter)
+// mainRouter.use('/history',historyRouter)
 
 module.exports = mainRouter

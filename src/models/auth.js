@@ -25,8 +25,6 @@ const createUser = (body) => {
                     }
                     db.query(sqlQuery, [bodyWithHashedPass], (err, result) => {
                         if (err) reject({ status: 500, err })
-                        // if (typeof phone !== 'number') reject({ status: 401, error: 'Harus Number' })
-
                         resolve({ status: 201, result })
                     })
                 })
@@ -50,7 +48,7 @@ const signIn = (body) => {
 
                 if (!isValid) return reject({ status: 401, err: 'Email/Password Salah' })
                 const payload = {
-                    // id: result[0].id,
+                    id: result[0].id,
                     email: result[0].email,
                     display_name: result[0].display_name,
                     first_name: result[0].first_name,
@@ -61,18 +59,18 @@ const signIn = (body) => {
                     phone: result[0].phone
                 }
                 const jwtOptions = {
-                    expiresIn: "10h",
+                    expiresIn: '10h',
                 }
                 jwt.sign(payload, process.env.SECRET_KEY, jwtOptions, (err, token) => {
                     if (err) reject({ status: 500, err })
 
-                    const { name, email, display_name,
+                    const { id, name, email, display_name,
                         first_name, last_name, dob,
                         delivery_adress, image, phone, } = result[0]
 
                     resolve({
                         status: 200, result: {
-                            name, email, display_name,
+                            id, name, email, display_name,
                             first_name, last_name, delivery_adress,
                             dob, image, phone, token
                         }
@@ -83,7 +81,18 @@ const signIn = (body) => {
     })
 }
 
+const logout = (token) => {
+    return new Promise((resolve, reject) => {
+        const sqlQuery = `INSERT INTO white_list_token (token) value(?)`
+        db.query(sqlQuery, [token], (err) => {
+            if (err) return reject({ status: 500, err })
+            resolve({ status: 200, result: { msg: 'You have been Logged Out' } })
+        })
+    })
+}
+
 module.exports = {
     createUser,
     signIn,
+    logout
 }
