@@ -1,5 +1,5 @@
 // const services = require('./../services/authService')
-const response = require("../helper/response");
+const {response} = require("../helper/response");
 // const productModel = require("../models/product");
 const model = require('../models/sequelize/index');
 
@@ -47,7 +47,7 @@ const model = require('../models/sequelize/index');
 // };
 
 const createProduct = async (req, res) => {
-  const image = `${process.env.IMAGE_HOST}${req.file.filename}`;
+  const image = req.file?.filename ? `${process.env.IMAGE_HOST}${req.file.filename}` : null;
   const body = req.body;
   body.image = image;
   body.price = parseInt(body.price);
@@ -98,6 +98,29 @@ const getProductById = async (req, res) => {
     });
     return response(res, {
       data: result,
+      status: 200,
+      massage: "get product by id succes",
+    });
+    // httpResponse(res, await services.createUser(req.body));
+  } catch (error) {
+    return response(res, {
+      status: 500,
+      massage: "Terjadi Error",
+      error,
+    });
+  }
+};
+const updateProduct = async (req, res) => {
+  const { productId } = req.params;
+  const body = req.body
+  try {
+    await model.products.update(body, {
+      where: {
+        id: productId
+      }
+    });
+    return response(res, {
+      data: null,
       status: 200,
       massage: "get product by id succes",
     });
@@ -171,4 +194,4 @@ const getAllProduct = async (req, res) => {
 //   }
 // };
 
-module.exports = { createProduct, getProductById,deleteById, getAllProduct };
+module.exports = { createProduct, getProductById,deleteById, getAllProduct ,updateProduct };
