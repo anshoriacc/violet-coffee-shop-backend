@@ -1,8 +1,9 @@
-const pagination = (data, query, totalData,limit, offset,status, message = 'success', error = null ) => {
+const pagination = (res, req, response ) => {
+  const {data, query, total, limit, offset, status, message, error} = response;
     
-    const totalPage = Math.ceil(totalData / limit);
-    
-    let {page, path} = query;
+    const totalPage = Math.ceil(total / limit);
+    const path = `http://${req.get('host') + req.baseUrl + req.route.path}?page`;
+    let {page} = query;
     page = parseInt(page)
     let queryString = ''
     Object.keys(query).forEach((key) => {
@@ -16,16 +17,17 @@ const pagination = (data, query, totalData,limit, offset,status, message = 'succ
     const resultPrint = {
       offset: offset ?? null,
       limit: limit || null,
-      total_data: totalData || 0,
+      total_data: total || 0,
       total_page: totalPage || 0,
       perv_link: prevLink || null,
       next_link: nextLink || null,
       message: message || null,
-      status: status || 500,
+      status: status ?? 500,
       err: error || null,
-      data: data || null,
+      data: data ?? null,
     };
-    return resultPrint
+    
+  res.status(status || 500).json(resultPrint)
   }
   
   module.exports = pagination;

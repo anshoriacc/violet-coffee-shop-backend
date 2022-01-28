@@ -1,4 +1,5 @@
 const { response } = require("../helper/response");
+const pagination = require("../helper/pagination");
 // const productModel = require("../models/product");
 const model = require("../models/sequelize/index");
 const additionalPriceLIst = {
@@ -61,20 +62,42 @@ const createPayment = async (req, res) => {
 };
 const getPaymentByUserId = async (req, res) => {
   const { userId } = req.params;
+  const {per_page,page} = req.query;
+  const limit =  parseInt(per_page ?? 10) 
+  const offset = parseInt((page ?? 1) * limit) - limit;
+  // console.log(limit, offset);
   try {
-    const result = await model.payment.findAll({
+    const payment = await model.payment.findAndCountAll({
       where: {
         user_id: userId,
       },
+      include: [
+        {
+          model: model.payment_item,
+          as: 'payment_item',
+          include: [
+            {
+            model: model.products,
+            as: 'product',
+            attributes: ['id', 'name', 'price', 'image']
+          }
+        ]
+        }
+      ],
+      limit:limit,
+      offset:offset,
     });
-    return response(res, {
-      data: result,
+    console.log(payment);
+    return pagination(res, req, {
+      data: payment.rows,
+      total: payment.count,
       status: 200,
       massage: "get payment by user id succes",
+      limit, offset,
+      query: req.query
     });
-    // httpResponse(res, await services.createUser(req.body));
   } catch (error) {
-    return response(res, {
+    return pagination(res, req, {
       status: 500,
       massage: "Terjadi Error",
       error,

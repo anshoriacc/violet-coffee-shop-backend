@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     start_delivery: DataTypes.STRING,
     end_delivery: DataTypes.STRING,
     image: DataTypes.STRING,
+    category: DataTypes.STRING,
     size_1: {
       type:DataTypes.ENUM,
       values: ['R', '250gr'],
