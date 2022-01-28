@@ -51,6 +51,7 @@ const createProduct = async (req, res) => {
   const body = req.body;
   body.image = image;
   body.price = parseInt(body.price);
+  console.log(body);
   try {
     const result = await model.products.create(body);
     return response(res, {
