@@ -1,15 +1,15 @@
 const express = require('express')
 const paymentRouter = express.Router()
-// const {checkToken} = require('../middlewares/auth')
+const {checkToken} = require('../middlewares/auth')
 const paymentController = require('./../controllers/payment')
 
 paymentRouter
-    .post('/createpayment',paymentController.createPayment)
-    .patch('/:paymentId',paymentController.updatePayment)
-    .get('/:userId',  paymentController.getPaymentByUserId)
-    .get('/payment-detail/:id',paymentController.getPaymentById)
+    .post('/createpayment',checkToken,paymentController.createPayment)
+    .patch('/:paymentId',checkToken,paymentController.updatePayment)
+    .get('/:userId',checkToken,  paymentController.getPaymentByUserId)
+    .get('/payment-detail/:id',checkToken,paymentController.getPaymentById)
     // .get('/',  paymentController.getAllProduct)
-    .delete('/:paymentId',  paymentController.deleteById)
+    .delete('/:paymentId',checkToken,  paymentController.deleteById)
 
 
 

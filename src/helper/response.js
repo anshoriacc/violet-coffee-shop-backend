@@ -19,6 +19,7 @@ const success = (res, status, data) => {
 }
 const error = (res, status, data) => {
   const dataError = new Error(data)
+  console.log(dataError);
   res.status(status).json({ err: dataError.message })
 }
 

@@ -9,9 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // static associate(models) {
-    //   // define association here
-    // }
+    static associate(models) {
+      // define association here
+      testimonies.hasOne(models.users,{
+        sourceKey: "user_id",
+        foreignKey: "id",
+        as: "author"
+      })
+    }
   }
   testimonies.init({
     user_id: DataTypes.INTEGER,
