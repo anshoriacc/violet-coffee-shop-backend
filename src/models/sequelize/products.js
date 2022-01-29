@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     // static associate(models) {
     //   // define association here
+      
     // }
   }
   products.init({
@@ -37,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     home_delivery: DataTypes.INTEGER,
     dine_in: DataTypes.INTEGER,
     take_away: DataTypes.INTEGER,
+    popular_score: DataTypes.INTEGER,
     createdAt:{
       field: 'created_at',
       type: DataTypes.DATE

@@ -1,0 +1,43 @@
+const db = require('../config/db')
+const bcrypt = require('bcrypt')
+
+const editPassword = (userInfo, body) => {
+    return new Promise((resolve, reject) => {
+        const { currentPass, newPass } = body
+        const checkPass = `SELECT password from users WHERE id = ${userInfo.id}`
+        db.query(checkPass, (err, result) => {
+            if (err) return reject({ status: 500, err })
+            bcrypt.compare(currentPass, result[0].password, (err, isValid) => {
+                if (err) return reject({ status: 500, err })
+                if (isValid !== true) return reject({ status: 401, err: 'Curent Password is wrong' })
+                bcrypt
+                    .hash(newPass, 10)
+                    .then((hashedPassword) => {
+                        const sqlQuery = `UPDATE users SET password = ? WHERE id = ${userInfo.id}`
+                        db.query(sqlQuery, [hashedPassword], (err, result) => {
+                            if (err) return reject({ status: 500, err })
+                            if (currentPass === newPass) return reject({ status: 401, err: 'Password is Used' })
+                            result = { msg: 'Change Password is Success' }
+                            resolve({ status: 200, result })
+                        })
+                    })
+                    .catch((err) => {
+                        reject({ status: 500, err })
+                    })
+            })
+        })
+    })
+}
+
+const deleteAccount = (id) => {
+    return new Promise((resolve, reject) => {
+        const sqlQuery = `DELETE FROM users WHERE id = ${id}`;
+        db.query(sqlQuery, (err, result) => {
+            if (err) return reject({ status: 500, err })
+            result = { msg: 'You have successfully deleted your account' }
+            resolve({ status: 200, result })
+        })
+    })
+}
+
+module.exports = { deleteAccount, editPassword }

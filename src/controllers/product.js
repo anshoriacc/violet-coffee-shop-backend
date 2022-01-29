@@ -55,7 +55,6 @@ const createProduct = async (req, res) => {
   const body = req.body;
   body.image = image;
   body.price = parseInt(body.price);
-  console.log(body);
   try {
     const result = await model.products.create(body);
     return response(res, {
@@ -116,7 +115,12 @@ const getProductById = async (req, res) => {
 };
 const updateProduct = async (req, res) => {
   const { productId } = req.params;
+  const image = req.file?.filename
+    ? `${process.env.IMAGE_HOST}${req.file.filename}`
+    : null;
   const body = req.body;
+  body.image = image;
+  body.price = parseInt(body.price);
   try {
     await model.products.update(body, {
       where: {
@@ -162,7 +166,8 @@ const deleteById = async (req, res) => {
 };
 
 const getAllProduct = async (req, res) => {
-  const { per_page, page, search, sortBy, sort, category } = req.query;
+  const { per_page, page, search, category } = req.query;
+  let { sortBy, sort} = req.query;
   const where = {};
   const limit = parseInt(per_page ?? 10);
   const offset = parseInt((page ?? 1) * limit) - limit;
@@ -181,14 +186,19 @@ const getAllProduct = async (req, res) => {
     ];
   }
   if (category) {
-    where.category = category;
+    if (category === 'favorite') {
+      sortBy = 'popular_score';
+      sort = 'DESC';
+    } else {
+      where.category = category;
+    }
   }
   try {
     const result = await model.products.findAndCountAll({
       where,
       limit: limit,
       offset: offset,
-      order: [[sortBy ?? 'created_at', sort ?? 'DESC']]
+      order: [[sortBy ?? 'createdAt', sort ?? 'DESC']]
     });
     return pagination(res, req, {
       data: result.rows,
@@ -201,7 +211,7 @@ const getAllProduct = async (req, res) => {
     });
     // httpResponse(res, await services.createUser(req.body));
   } catch (error) {
-    return pagination(res, req, {
+    return response(res, {
       status: 500,
       massage: "Terjadi Error",
       error,
@@ -209,24 +219,6 @@ const getAllProduct = async (req, res) => {
   }
 };
 
-// const deleteById = async (req, res) => {
-//   const { productId } = req.params;
-//   try {
-//     const result = await productModel.deleteById(productId);
-//     return response(res, {
-//       data: result,
-//       status: 200,
-//       massage: "delete by id succes",
-//     });
-//     // httpResponse(res, await services.createUser(req.body));
-//   } catch (error) {
-//     return response(res, {
-//       status: 500,
-//       massage: "Terjadi Error",
-//       error,
-//     });
-//   }
-// };
 
 module.exports = {
   createProduct,

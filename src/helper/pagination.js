@@ -3,7 +3,8 @@ const pagination = (res, req, response ) => {
     
     const totalPage = Math.ceil(total / limit);
     const path = `http://${req.get('host') + req.baseUrl + req.route.path}?page`;
-    let {page} = query;
+    console.log(req.query);
+    let {page} = req.query;
     page = parseInt(page)
     let queryString = ''
     Object.keys(query).forEach((key) => {

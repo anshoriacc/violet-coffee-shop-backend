@@ -11,7 +11,7 @@ const additionalPriceLIst = {
   "500gr": 3000,
 };
 const shippingPrice = 10000;
-const taxPercent = 10;
+const taxPercent = 0.1;
 
 const createPayment = async (req, res) => {
   const { products, delivery_method, set_time } = req.body;
@@ -23,6 +23,7 @@ const createPayment = async (req, res) => {
         const additionalPrice = additionalPriceLIst[product.size] ?? 0;
         const getProduct = await model.products.findByPk(product.product_id);
         if (getProduct) {
+          await getProduct.update({popular_score: getProduct.popular_score + 1})
           subTotal += getProduct.price * product.quantity + additionalPrice;
         }
         return getProduct;
@@ -87,7 +88,6 @@ const getPaymentByUserId = async (req, res) => {
       limit:limit,
       offset:offset,
     });
-    console.log(payment);
     return pagination(res, req, {
       data: payment.rows,
       total: payment.count,

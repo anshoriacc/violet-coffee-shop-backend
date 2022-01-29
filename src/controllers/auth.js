@@ -1,8 +1,5 @@
 const response = require('../helper/response')
 const authModel = require('./../models/auth')
-const jwt = require("jsonwebtoken");
-
-
 
 const createUser = (req, res) => {
     const { body } = req
@@ -33,21 +30,16 @@ const login = (req, res) => {
         })
 }
 
-
 const logout = (req, res) => {
-    const authHeader = req.headers["x-access-token"]
-
-    const jwtOptions = {
-        expiresIn: "1s",
-    }
-
-    jwt.sign(authHeader, "", jwtOptions, (logout) => {
-        if (logout) {
-            res.send({ msg: 'You have been Logged Out' });
-        } else {
-            res.send({ msg: 'Error' });
-        }
-    });
+    const token = req.header("x-access-token")
+    authModel
+        .logout(token)
+        .then(({ status, result }) => {
+            response.success(res, status, result)
+        })
+        .catch(({ status, err }) => {
+            response.error(res, status, err)
+        })
 }
 
 module.exports = { createUser, login, logout }
