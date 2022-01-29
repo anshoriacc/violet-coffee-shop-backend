@@ -209,6 +209,8 @@ const getAllProduct = async (req, res) => {
   }
 };
 
+
+
 // const deleteById = async (req, res) => {
 //   const { productId } = req.params;
 //   try {
