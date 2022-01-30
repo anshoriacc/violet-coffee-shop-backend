@@ -75,7 +75,7 @@ const signIn = (body) => {
 
 const logout = (token) => {
     return new Promise((resolve, reject) => {
-        const sqlQuery = `INSERT INTO white_list_token (token) value(?)`
+        const sqlQuery = `INSERT INTO blacklist_token (token) value(?)`
         db.query(sqlQuery, [token], (err) => {
             if (err) return reject({ status: 500, err })
             resolve({ status: 200, result: { msg: 'You have been Logged Out' } })
