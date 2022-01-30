@@ -18,12 +18,8 @@ const editUser = (userInfo, body, file) => {
 
             db.query(sqlQuery, [body], (err, result) => {
                 if (err) return reject({ status: 500, err })
-                console.log(result);
-                resolve({
-                    status: 200, result: {
-                        msg: 'success change profile'
-                    }
-                })
+                result = { msg: 'Success Change Profile' }
+                resolve({ status: 200, result })
             })
         })
     })

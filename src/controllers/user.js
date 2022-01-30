@@ -19,7 +19,7 @@ const editPassword = (req, res) => {
     const userInfo = req.userInfo
     const { body } = req
     userModel
-        .editPassword(userInfo, body, file)
+        .editPassword(userInfo, body)
         .then(({ status, result }) => {
             response.success(res, status, result)
         }).catch(({ status, err }) => {
