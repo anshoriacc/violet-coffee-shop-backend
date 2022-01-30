@@ -15,6 +15,7 @@ const taxPercent = 0.1;
 
 const createPayment = async (req, res) => {
   const { products, delivery_method, set_time } = req.body;
+  const {id} = req.userInfo;
   let subTotal = 0;
 
   try {
@@ -35,7 +36,7 @@ const createPayment = async (req, res) => {
       sub_total: subTotal,
       total_price: subTotal + shipping + tax,
       tax,
-      user_id: 1, // hardcode dlu
+      user_id: id, // hardcode dlu
       set_time,
     });
     await Promise.all(
@@ -62,7 +63,8 @@ const createPayment = async (req, res) => {
   }
 };
 const getPaymentByUserId = async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.userInfo;
+  console.log(req.userInfo);
   const {per_page,page} = req.query;
   const limit =  parseInt(per_page ?? 10) 
   const offset = parseInt((page ?? 1) * limit) - limit;
@@ -70,7 +72,7 @@ const getPaymentByUserId = async (req, res) => {
   try {
     const payment = await model.payment.findAndCountAll({
       where: {
-        user_id: userId,
+        user_id: id,
       },
       include: [
         {
