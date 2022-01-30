@@ -1,5 +1,41 @@
-const db = require('../config/db')
+const db = require('./../config/db')
 const bcrypt = require('bcrypt')
+
+const detailPersonal = (userInfo) => {
+    return new Promise((resolve, reject) => {
+        const { id } = userInfo
+        const sqlQuery = `SELECT * FROM users WHERE id = ${id}`
+
+        db.query(sqlQuery, (err, result) => {
+            if (err) return reject({ status: 500, err })
+            resolve({ status: 200, result })
+        })
+    })
+}
+
+const editUser = (userInfo, body, file) => {
+    return new Promise((resolve, reject) => {
+        const { email } = body
+        const { id } = userInfo
+        const checkEmail = `SELECT * FROM users WHERE email = ?`
+
+        db.query(checkEmail, [email], (err, result) => {
+            if (err) return reject({ status: 500, err })
+            if (result.length > 0) return reject({ status: 401, err: "Email is Already" })
+            if (!email.includes('@gmail.com') && !email.includes('@yahoo.com') && !email.includes('@mail.com')) return reject({ status: 401, err: "Invalid Email" })
+
+            const sqlQuery = `UPDATE users SET ? WHERE id = ${id}`
+            if (file) body = { ...body, image: `${process.env.IMAGE_HOST}${file.filename}` }
+            if (!file) body = { ...body }
+
+            db.query(sqlQuery, [body], (err, result) => {
+                if (err) return reject({ status: 500, err })
+                result = { msg: 'Success Change Profile' }
+                resolve({ status: 200, result })
+            })
+        })
+    })
+}
 
 const editPassword = (userInfo, body) => {
     return new Promise((resolve, reject) => {
@@ -29,6 +65,19 @@ const editPassword = (userInfo, body) => {
     })
 }
 
+const removePhoto = (userInfo) => {
+    return new Promise((resolve, reject) => {
+        const { id } = userInfo
+        const empty = null
+        const sqlQuery = `UPDATE users SET image = ${empty} WHERE id = ${id}`
+        db.query(sqlQuery, (err, result) => {
+            if (err) return reject({ status: 500, err })
+            result = { msg: 'Remove Photo Profile Success' }
+            resolve({ status: 200, result })
+        })
+    })
+}
+
 const deleteAccount = (id) => {
     return new Promise((resolve, reject) => {
         const sqlQuery = `DELETE FROM users WHERE id = ${id}`;
@@ -40,4 +89,10 @@ const deleteAccount = (id) => {
     })
 }
 
-module.exports = { deleteAccount, editPassword }
+module.exports = {
+    detailPersonal,
+    editUser,
+    editPassword,
+    removePhoto,
+    deleteAccount
+}
