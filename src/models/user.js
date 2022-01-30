@@ -72,7 +72,7 @@ const removePhoto = (userInfo) => {
         const sqlQuery = `UPDATE users SET image = ${empty} WHERE id = ${id}`
         db.query(sqlQuery, (err, result) => {
             if (err) return reject({ status: 500, err })
-            result = { msg: 'Remove Profile Success' }
+            result = { msg: 'Remove Photo Profile Success' }
             resolve({ status: 200, result })
         })
     })
