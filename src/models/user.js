@@ -1,6 +1,18 @@
 const db = require('./../config/db')
 const bcrypt = require('bcrypt')
 
+const detailPersonal = (userInfo) => {
+    return new Promise((resolve, reject) => {
+        const { id } = userInfo
+        const sqlQuery = `SELECT * FROM users WHERE id = ${id}`
+
+        db.query(sqlQuery, (err, result) => {
+            if (err) return reject({ status: 500, err })
+            resolve({ status: 200, result })
+        })
+    })
+}
+
 const editUser = (userInfo, body, file) => {
     return new Promise((resolve, reject) => {
         const { email } = body
@@ -53,6 +65,19 @@ const editPassword = (userInfo, body) => {
     })
 }
 
+const removePhoto = (userInfo) => {
+    return new Promise((resolve, reject) => {
+        const { id } = userInfo
+        const empty = null
+        const sqlQuery = `UPDATE users SET image = ${empty} WHERE id = ${id}`
+        db.query(sqlQuery, (err, result) => {
+            if (err) return reject({ status: 500, err })
+            result = { msg: 'Remove Profile Success' }
+            resolve({ status: 200, result })
+        })
+    })
+}
+
 const deleteAccount = (id) => {
     return new Promise((resolve, reject) => {
         const sqlQuery = `DELETE FROM users WHERE id = ${id}`;
@@ -65,7 +90,9 @@ const deleteAccount = (id) => {
 }
 
 module.exports = {
+    detailPersonal,
     editUser,
     editPassword,
+    removePhoto,
     deleteAccount
 }

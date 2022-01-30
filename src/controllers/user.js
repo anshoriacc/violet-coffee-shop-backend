@@ -1,6 +1,18 @@
 const userModel = require('../models/user')
 const response = require('../helper/response')
 
+const detailPersonal = (req, res) => {
+    const userInfo = req.userInfo
+    userModel
+        .detailPersonal(userInfo)
+        .then(({ status, result }) => {
+            response.success(res, status, result)
+        })
+        .catch(({ status, err }) => {
+            response.error(res, status, err)
+        })
+}
+
 const editUser = (req, res) => {
     const userInfo = req.userInfo
     let { body } = req
@@ -27,6 +39,17 @@ const editPassword = (req, res) => {
         })
 }
 
+const removePhoto = (req, res) => {
+    const userInfo = req.userInfo
+    userModel
+        .removePhoto(userInfo)
+        .then(({ status, result }) => {
+            response.success(res, status, result)
+        }).catch(({ status, err }) => {
+            response.error(res, status, err)
+        })
+}
+
 const deleteAccount = (req, res) => {
     const { id } = req.userInfo
     userModel
@@ -39,7 +62,9 @@ const deleteAccount = (req, res) => {
 }
 
 module.exports = {
+    detailPersonal,
     deleteAccount,
     editUser,
+    removePhoto,
     editPassword
 }
