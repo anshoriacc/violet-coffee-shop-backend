@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 
 const editUser = (userInfo, body, file) => {
     return new Promise((resolve, reject) => {
-        let { email } = body
+        const { email } = body
         const { id } = userInfo
         const checkEmail = `SELECT * FROM users WHERE email = ?`
 
@@ -15,7 +15,7 @@ const editUser = (userInfo, body, file) => {
             const sqlQuery = `UPDATE users SET ? WHERE id = ${id}`
             if (file) body = { ...body, image: file.filename }
             if (!file) body = { ...body }
-            console.log(result);
+
             db.query(sqlQuery, [body], (err, result) => {
                 if (err) return reject({ status: 500, err })
                 console.log(result);
