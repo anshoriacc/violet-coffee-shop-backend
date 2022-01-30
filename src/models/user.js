@@ -1,5 +1,33 @@
-const db = require('../config/db')
+const db = require('./../config/db')
 const bcrypt = require('bcrypt')
+
+const editUser = (userInfo, body, file) => {
+    return new Promise((resolve, reject) => {
+        let { email } = body
+        const { id } = userInfo
+        const checkEmail = `SELECT * FROM users WHERE email = ?`
+
+        db.query(checkEmail, [email], (err, result) => {
+            if (err) return reject({ status: 500, err })
+            if (result.length > 0) return reject({ status: 401, err: "Email is Already" })
+            if (!email.includes('@gmail.com') && !email.includes('@yahoo.com') && !email.includes('@mail.com')) return reject({ status: 401, err: "Invalid Email" })
+
+            const sqlQuery = `UPDATE users SET ? WHERE id = ${id}`
+            if (file) body = { ...body, image: file.filename }
+            if (!file) body = { ...body }
+            console.log(result);
+            db.query(sqlQuery, [body], (err, result) => {
+                if (err) return reject({ status: 500, err })
+                console.log(result);
+                resolve({
+                    status: 200, result: {
+                        msg: 'success change profile'
+                    }
+                })
+            })
+        })
+    })
+}
 
 const editPassword = (userInfo, body) => {
     return new Promise((resolve, reject) => {
@@ -40,4 +68,8 @@ const deleteAccount = (id) => {
     })
 }
 
-module.exports = { deleteAccount, editPassword }
+module.exports = {
+    editUser,
+    editPassword,
+    deleteAccount
+}
