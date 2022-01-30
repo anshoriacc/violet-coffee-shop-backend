@@ -45,12 +45,12 @@ const login = (body) => {
                     id: result[0].id,
                     email: result[0].email,
                     display_name: result[0].display_name,
-                    // first_name: result[0].first_name,
-                    // last_name: result[0].last_name,
-                    // dob: result[0].dob,
-                    // delivery_adress: result[0].delivery_adress,
-                    // image: result[0].image,
-                    // phone: result[0].phone,
+                    first_name: result[0].first_name,
+                    last_name: result[0].last_name,
+                    dob: result[0].dob,
+                    delivery_adress: result[0].delivery_adress,
+                    image: result[0].image,
+                    phone: result[0].phone,
                     role: result[0].role
                 }
                 const jwtOptions = {
@@ -61,14 +61,14 @@ const login = (body) => {
                     // const { id, name, email, display_name,
                     //     first_name, last_name, dob,
                     //     delivery_adress, image, phone, role } = result[0]
-                    const { id, email, display_name, role } = result[0]
+                    // const { id, email, display_name, role } = result[0]
                     resolve({
                         // status: 200, result: {
                         //     id, name, email, display_name,
                         //     first_name, last_name, delivery_adress,
                         //     dob, image, phone, token, role
                         // }
-                        status: 200, result: { id, email, display_name, role, token }
+                        status: 200, result: { token, msg: 'Login Success' }
                     })
                 })
             })
