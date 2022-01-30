@@ -14,4 +14,30 @@ const createProduct = (name, description, price, size, deliveryMethods, stock, s
     });
 }
 
-module.exports = { createProduct}
+const getProductById = (productId) => {
+    return new Promise ((resolve,reject) =>{
+        // const sqlQuery = `SELECT * FROM vehicle WHERE id = ${vehicleId} LIMIT 1`;
+        db.query('SELECT * FROM products WHERE id = ?',[productId], (error, result) => {
+            if (!error) {
+                resolve(result);
+            } else {
+                reject(error);
+            }
+        })
+    })
+}
+
+const deleteById = (productId) => {
+    return new Promise ((resolve,reject) =>{
+        // const sqlQuery = `SELECT * FROM vehicle WHERE id = ${vehicleId} LIMIT 1`;
+        db.query('DELETE FROM products WHERE id = ?',[productId], (error, result) => {
+            if (!error) {
+                resolve(result);
+            } else {
+                reject(error);
+            }
+        })
+    })
+}
+
+module.exports = { createProduct, getProductById,deleteById}

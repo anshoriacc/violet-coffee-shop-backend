@@ -13,6 +13,7 @@ const register = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { body } = req
+  console.log(body);
   const registerBody = ['email', 'password']
   const bodyProperty = Object.keys(body)
   const isBodyValid =

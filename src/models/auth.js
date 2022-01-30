@@ -50,7 +50,8 @@ const signIn = (body) => {
                     dob: result[0].dob,
                     delivery_adress: result[0].delivery_adress,
                     image: result[0].image,
-                    phone: result[0].phone
+                    phone: result[0].phone,
+                    role: result[0].role
                 }
                 const jwtOptions = {
                     expiresIn: '10h',
@@ -59,12 +60,13 @@ const signIn = (body) => {
                     if (err) reject({ status: 500, err })
                     const { id, name, email, display_name,
                         first_name, last_name, dob,
-                        delivery_adress, image, phone, } = result[0]
+                        delivery_adress, image, phone, role } = result[0]
+                        console.log(result[0]);
                     resolve({
                         status: 200, result: {
                             id, name, email, display_name,
                             first_name, last_name, delivery_adress,
-                            dob, image, phone, token
+                            dob, image, phone, token, role
                         }
                     })
                 })

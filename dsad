@@ -1,0 +1,163 @@
+[33mcommit bbce2f888b455db3ce3fbcf9844f3d4bc669e9f9[m[33m ([m[1;36mHEAD -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/hazpi[m[33m, [m[1;32mhazpi[m[33m)[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Sun Jan 30 16:13:49 2022 +0700
+
+    add edi user
+
+[33mcommit 9a9d3448cc723558dd4d07d4ea204da5497ce13d[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Sun Jan 30 13:35:59 2022 +0700
+
+    add fitur edit profile
+
+[33mcommit 22caa87f84f0a5f09105d179421f14e74baed06c[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Sun Jan 30 11:11:54 2022 +0700
+
+    rev table from logout
+
+[33mcommit 0ac71ceafdafc46913f5535c2f0f09044e803e06[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Fri Jan 28 22:27:54 2022 +0700
+
+    add change password feature
+
+[33mcommit 7f1e583c7f7fadefc511c06f20304018a857937b[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Fri Jan 28 20:28:40 2022 +0700
+
+    rev logout & add delete account feature
+
+[33mcommit 90d44b76d7a5d89cc59eb6941fa613336126c2d1[m
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Fri Jan 28 00:20:06 2022 +0700
+
+    fix validate
+
+[33mcommit a94e388abafec8933e5d0466bbf24c792f435fe3[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Thu Jan 27 23:30:55 2022 +0700
+
+    rev expiresIn
+
+[33mcommit c30e25f3e980680b02100069421106b819b9b801[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Thu Jan 27 23:25:46 2022 +0700
+
+    add logout
+
+[33mcommit fb10760f2f36f76ae4e230a23f44b7e891044f18[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Thu Jan 27 21:46:59 2022 +0700
+
+    fitur login
+
+[33mcommit 6d4121b88e11f73868a26da52b51f23980bb0067[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Thu Jan 27 20:58:00 2022 +0700
+
+    check signup solve/no?
+
+[33mcommit dc048051225b549a75b14357eabfc6ce38c4e74e[m
+Merge: 60b8a35 4e28fa4
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Thu Jan 27 15:48:00 2022 +0700
+
+    Merge branch 'development' of https://github.com/anshoriacc/violet-coffee-shop-backend into hazpi
+
+[33mcommit 60b8a35e35673e12ece55bc9bb9acaf2b4078a86[m
+Merge: 971f0bd b1affd6
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Thu Jan 27 15:39:17 2022 +0700
+
+    Merge branch 'hazpi' of https://github.com/anshoriacc/violet-coffee-shop-backend into hazpi
+
+[33mcommit 971f0bd589a6b6561bdd51a5d9233073380635d2[m
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Thu Jan 27 15:38:54 2022 +0700
+
+    fix auth
+
+[33mcommit b1affd635684b8c5eac807445c245a3a79e58eca[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Thu Jan 27 15:37:13 2022 +0700
+
+    first signup
+
+[33mcommit ca02cdf92a6f9d066ab4c61966a66dbe7971ceaf[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Thu Jan 27 14:35:03 2022 +0700
+
+    check signUP
+
+[33mcommit 4e28fa40eb9932b60b9269c07139ba8e28d47ace[m
+Merge: e396b7c f28e756
+Author: achmad anshori <50905938+anshoriacc@users.noreply.github.com>
+Date:   Thu Jan 27 12:12:45 2022 +0700
+
+    Merge pull request #2 from anshoriacc/trisumanzaya
+    
+    Trisumanzaya
+
+[33mcommit 11cbada4b11de6506b148fc9fe0196a1eb3c0cf2[m
+Author: Hazvi Nurafgan <hazvinurafgan@gmail.com>
+Date:   Thu Jan 27 11:58:07 2022 +0700
+
+    first push
+
+[33mcommit f28e7560ba2dbb91ea8c5ecfc4dd345d38ecae47[m
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Thu Jan 27 11:45:07 2022 +0700
+
+    change name file
+
+[33mcommit 43645bf1db76e3934d60c65c36c4b888b6361475[m[33m ([m[1;32mmaster[m[33m)[m
+Merge: b841deb e396b7c
+Author: achmad anshori <50905938+anshoriacc@users.noreply.github.com>
+Date:   Thu Jan 27 11:36:02 2022 +0700
+
+    Merge pull request #1 from anshoriacc/development
+    
+    Development
+
+[33mcommit 9ae19f718607bc73c4ab4e9db23ad1284913abe7[m
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Thu Jan 27 01:47:30 2022 +0700
+
+    api create vehicle done
+
+[33mcommit e396b7ca1029a6692c86f9f5585f250bbd73945c[m
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Wed Jan 26 22:41:15 2022 +0700
+
+    setup done + 1 api signup
+
+[33mcommit 108af14c0721e4f0bf27bfb441cfd3d1b8e42eb7[m
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Wed Jan 26 20:49:56 2022 +0700
+
+    ignore'
+
+[33mcommit b841deb92e9b42c3cb4707519ef625379624d830[m
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Wed Jan 26 20:48:31 2022 +0700
+
+    remove nodemodules
+
+[33mcommit 64404f10c8963a4839469d2ac28b9749db7e2bba[m
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Wed Jan 26 20:46:03 2022 +0700
+
+    ignore
+
+[33mcommit ad103189d13390d778421226aed858164f250055[m
+Author: Trisumanzaya93 <trisumanzaya93a@gmail.com>
+Date:   Wed Jan 26 20:24:00 2022 +0700
+
+    tes branc
+
+[33mcommit 4a1c6847482ad318e1645930b6822d67251ece66[m
+Author: arik <anshoriacc@gmail.com>
+Date:   Wed Jan 26 15:23:51 2022 +0700
+
+    first commit
