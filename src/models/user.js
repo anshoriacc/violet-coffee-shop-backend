@@ -25,7 +25,7 @@ const editUser = (userInfo, body, file) => {
             if (!email.includes('@gmail.com') && !email.includes('@yahoo.com') && !email.includes('@mail.com')) return reject({ status: 401, err: "Invalid Email" })
 
             const sqlQuery = `UPDATE users SET ? WHERE id = ${id}`
-            if (file) body = { ...body, image: file.filename }
+            if (file) body = { ...body, image: `${process.env.IMAGE_HOST}${file.filename}` }
             if (!file) body = { ...body }
 
             db.query(sqlQuery, [body], (err, result) => {

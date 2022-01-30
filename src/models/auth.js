@@ -68,7 +68,7 @@ const login = (body) => {
                         //     first_name, last_name, delivery_adress,
                         //     dob, image, phone, token, role
                         // }
-                        status: 200, result: { token, msg: 'Login Success' }
+                        status: 200, result: { token, massage: 'Login Success' }
                     })
                 })
             })
