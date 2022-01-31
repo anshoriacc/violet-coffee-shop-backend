@@ -22,17 +22,25 @@ const detailPersonal = (req, res) => {
         })
 }
 
+
 const editUser = (req, res) => {
-    const userInfo = req.userInfo
-    let { body } = req
-    const file = req.file
-    userModel
-        .editUser(userInfo, body, file)
-        .then(({ status, result }) => {
-            response.success(res, status, result)
+    const userId = req.userInfo.id
+    const { body } = req
+    const image = req.file?.filename ? `${process.env.IMAGE_HOST}${req.file.filename}` : null
+    body.image = image
+
+    console.log(body)
+    model.users.update(
+        body,
+        {
+            where: { id: userId }
+        }
+    )
+        .then((result) => {
+            res.status(200).json(result)
         })
-        .catch(({ status, err }) => {
-            response.error(res, status, err)
+        .catch((err) => {
+            res.status(500).json(err)
         })
 }
 

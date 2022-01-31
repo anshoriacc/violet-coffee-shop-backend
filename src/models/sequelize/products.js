@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     // static associate(models) {
     //   // define association here
-      
+
     // }
   }
   products.init({
@@ -24,26 +24,26 @@ module.exports = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
     category: DataTypes.STRING,
     size_1: {
-      type:DataTypes.ENUM,
+      type: DataTypes.ENUM,
       values: ['R', '250gr'],
     },
     size_2: {
-      type:DataTypes.ENUM,
+      type: DataTypes.ENUM,
       values: ['L', '300gr'],
     },
     size_3: {
-      type:DataTypes.ENUM,
+      type: DataTypes.ENUM,
       values: ['XL', '500gr'],
     },
     home_delivery: DataTypes.INTEGER,
     dine_in: DataTypes.INTEGER,
     take_away: DataTypes.INTEGER,
     popular_score: DataTypes.INTEGER,
-    createdAt:{
+    createdAt: {
       field: 'created_at',
       type: DataTypes.DATE
     },
-    updatedAt:{
+    updatedAt: {
       field: 'updated_at',
       type: DataTypes.DATE
     }
