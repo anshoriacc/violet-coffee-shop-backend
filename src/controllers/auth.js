@@ -1,6 +1,7 @@
 const response = require('../helper/response')
 const authModel = require('./../models/auth')
 
+
 const register = (req, res) => {
     const { body } = req
     authModel

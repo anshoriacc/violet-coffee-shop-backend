@@ -1,5 +1,32 @@
 const userModel = require('../models/user')
-const response = require('../helper/response')
+// const response = require('../helper/response')
+const model = require("../models/sequelize/index");
+const { response } = require("../helper/response");
+
+
+const getUserSequilize = async (req, res) => {
+    const {id} = req.userInfo
+    try {
+      const result = await model.users.findOne(
+          {
+              where:id,
+              attributes: ['id', 'email','phone','delivery_adress','gender','display_name','first_name','image']
+        }
+      );
+      return response(res, {
+        data: result,
+        status: 200,
+        massage: "get product by id succes",
+      });
+      // httpResponse(res, await services.createUser(req.body));
+    } catch (error) {
+      return response(res, {
+        status: 500,
+        massage: "Terjadi Error",
+        error,
+      });
+    }
+  };
 
 const detailPersonal = (req, res) => {
     const userInfo = req.userInfo
@@ -62,6 +89,7 @@ const deleteAccount = (req, res) => {
 }
 
 module.exports = {
+    getUserSequilize,
     detailPersonal,
     deleteAccount,
     editUser,
