@@ -1,16 +1,24 @@
-const userModel = require('../models/user')
 const response = require('../helper/response')
-
+const userModel = require('../models/user')
+const model = require('../models/sequelize/index')
 
 const detailPersonal = (req, res) => {
-    const userInfo = req.userInfo
-    userModel
-        .detailPersonal(userInfo)
-        .then(({ status, result }) => {
-            response.success(res, status, result)
+    const { id } = req.userInfo
+    model.users.findOne(
+        {
+            where: id,
+            attributes: [
+                'id', 'email', 'phone',
+                'delivery_adress', 'gender',
+                'display_name', 'first_name', 'image'
+            ]
+        }
+    )
+        .then((result) => {
+            res.status(200).json(result)
         })
-        .catch(({ status, err }) => {
-            response.error(res, status, err)
+        .catch((err) => {
+            res.status(500).json(err)
         })
 }
 
@@ -63,7 +71,7 @@ const deleteAccount = (req, res) => {
 }
 
 module.exports = {
-    
+
     detailPersonal,
     deleteAccount,
     editUser,

@@ -167,7 +167,7 @@ const deleteById = async (req, res) => {
 
 const getAllProduct = async (req, res) => {
   const { per_page, page, search, category } = req.query;
-  let { sortBy, sort} = req.query;
+  let { sortBy, sort } = req.query;
   const where = {};
   const limit = parseInt(per_page ?? 10);
   const offset = parseInt((page ?? 1) * limit) - limit;
