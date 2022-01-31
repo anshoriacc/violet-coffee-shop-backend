@@ -17,11 +17,14 @@ const editUser = (userInfo, body, file) => {
     return new Promise((resolve, reject) => {
         const { email } = body
         const { id } = userInfo
-        const checkEmail = `SELECT * FROM users WHERE email = ?`
-
+        const checkEmail = `SELECT * FROM users WHERE email = ?`;
+        let getUserInfo = {};
+        db.query('SELECT * FROM users WHERE id = ?',[id],(err, result) => {
+            getUserInfo = result[0];
+        })
         db.query(checkEmail, [email], (err, result) => {
             if (err) return reject({ status: 500, err })
-            if (result.length > 0) return reject({ status: 401, err: "Email is Already" })
+            if (result.length > 0 && getUserInfo.email !== email) return reject({ status: 401, err: "Email is Already" })
             if (!email.includes('@gmail.com') && !email.includes('@yahoo.com') && !email.includes('@mail.com')) return reject({ status: 401, err: "Invalid Email" })
 
             const sqlQuery = `UPDATE users SET ? WHERE id = ${id}`
