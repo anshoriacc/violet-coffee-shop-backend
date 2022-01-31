@@ -42,4 +42,16 @@ const logout = (req, res) => {
         })
 }
 
-module.exports = { createUser, login, logout }
+const forgotPassword = (req, res) => {
+    const token = req.header("x-access-token")
+    authModel
+        .logout(token)
+        .then(({ status, result }) => {
+            response.success(res, status, result)
+        })
+        .catch(({ status, err }) => {
+            response.error(res, status, err)
+        })
+}
+
+module.exports = { createUser, login, logout,forgotPassword }
