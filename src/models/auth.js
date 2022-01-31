@@ -2,7 +2,7 @@ const db = require('./../config/db')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-const createUser = (body) => {
+const register = (body) => {
     return new Promise((resolve, reject) => {
         const { email, password, phone } = body
         const checkemail = `SELECT * FROM users where email = ?`
@@ -29,7 +29,7 @@ const createUser = (body) => {
     })
 }
 
-const signIn = (body) => {
+const login = (body) => {
     return new Promise((resolve, reject) => {
         const { email, password } = body
         const sqlQuery = `SELECT * FROM users WHERE ?`
@@ -58,16 +58,17 @@ const signIn = (body) => {
                 }
                 jwt.sign(payload, process.env.SECRET_KEY, jwtOptions, (err, token) => {
                     if (err) reject({ status: 500, err })
-                    const { id, name, email, display_name,
-                        first_name, last_name, dob,
-                        delivery_adress, image, phone, role } = result[0]
-                        console.log(result[0]);
+                    // const { id, name, email, display_name,
+                    //     first_name, last_name, dob,
+                    //     delivery_adress, image, phone, role } = result[0]
+                    // const { id, email, display_name, role } = result[0]
                     resolve({
-                        status: 200, result: {
-                            id, name, email, display_name,
-                            first_name, last_name, delivery_adress,
-                            dob, image, phone, token, role
-                        }
+                        // status: 200, result: {
+                        //     id, name, email, display_name,
+                        //     first_name, last_name, delivery_adress,
+                        //     dob, image, phone, token, role
+                        // }
+                        status: 200, result: { token, massage: 'Login Success' }
                     })
                 })
             })
@@ -77,7 +78,7 @@ const signIn = (body) => {
 
 const logout = (token) => {
     return new Promise((resolve, reject) => {
-        const sqlQuery = `INSERT INTO white_list_token (token) value(?)`
+        const sqlQuery = `INSERT INTO blacklist_token (token) value(?)`
         db.query(sqlQuery, [token], (err) => {
             if (err) return reject({ status: 500, err })
             resolve({ status: 200, result: { msg: 'You have been Logged Out' } })
@@ -86,7 +87,7 @@ const logout = (token) => {
 }
 
 module.exports = {
-    createUser,
-    signIn,
+    register,
+    login,
     logout
 }

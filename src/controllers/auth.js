@@ -1,10 +1,10 @@
 const response = require('../helper/response')
 const authModel = require('./../models/auth')
 
-const createUser = (req, res) => {
+const register = (req, res) => {
     const { body } = req
     authModel
-        .createUser(body)
+        .register(body)
         .then(({ status, result }) => {
             const objectResponse = {
                 id: result.insertId,
@@ -21,7 +21,7 @@ const createUser = (req, res) => {
 const login = (req, res) => {
     const { body } = req
     authModel
-        .signIn(body)
+        .login(body)
         .then(({ status, result }) => {
             response.success(res, status, result)
         })
@@ -42,16 +42,4 @@ const logout = (req, res) => {
         })
 }
 
-const forgotPassword = (req, res) => {
-    const token = req.header("x-access-token")
-    authModel
-        .logout(token)
-        .then(({ status, result }) => {
-            response.success(res, status, result)
-        })
-        .catch(({ status, err }) => {
-            response.error(res, status, err)
-        })
-}
-
-module.exports = { createUser, login, logout,forgotPassword }
+module.exports = { register, login, logout }
