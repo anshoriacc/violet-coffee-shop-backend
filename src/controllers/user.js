@@ -10,7 +10,7 @@ const detailPersonal = (req, res) => {
             attributes: [
                 'id', 'email', 'phone',
                 'delivery_adress', 'gender',
-                'display_name', 'first_name', 'image'
+                'display_name', 'first_name', 'image','role'
             ]
         }
     )
