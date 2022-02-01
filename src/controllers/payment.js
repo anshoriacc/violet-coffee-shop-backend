@@ -72,29 +72,46 @@ const getPaymentByUserId = async (req, res) => {
   const offset = parseInt((page ?? 1) * limit) - limit;
   // console.log(limit, offset);
   try {
-    const payment = await model.payment.findAndCountAll({
-      where: {
-        user_id: id,
-      },
+    // const payment = await model.payment.findAndCountAll({
+    //   where: {
+    //     user_id: id,
+    //   },
+    // });
+
+    const paymentItems = await model.payment_item.findAndCountAll({
       include: [
         {
-          model: model.payment_item,
-          as: 'payment_item',
-          include: [
-            {
-            model: model.products,
-            as: 'product',
-            attributes: ['id', 'name', 'price', 'image', 'discount']
-          }
-        ]
-        }
-      ],
+        model: model.products,
+        as: 'product',
+        attributes: ['id', 'name', 'price', 'image', 'discount']
+      },
+      {
+        model: model.payment,
+        as: 'payment',
+        where: {
+        user_id: id,
+        },
+        attributes: []
+      }
+    ],
       limit:limit,
       offset:offset,
+    })
+
+    const buffer = await paymentItems.rows.map((payment) => {
+      const container ={...payment.dataValues};
+      const product = payment.dataValues.product;
+      container.name = product.name;
+      container.price = product.price;
+      container.image = product.image;
+      container.discount = product.discount;
+
+      return container
     });
+// console.log(buffer);
     return pagination(res, req, {
-      data: payment.rows,
-      total: payment.count,
+      data: buffer,
+      total: paymentItems.count,
       status: 200,
       massage: "get payment by user id succes",
       limit, offset,
@@ -147,7 +164,7 @@ const getPaymentById = async (req, res) => {
 const deleteById = async (req, res) => {
   const { paymentId } = req.params;
   try {
-    const result = await model.payment.destroy({
+    const result = await model.payment_item.destroy({
       where: {
         id: paymentId,
       },
