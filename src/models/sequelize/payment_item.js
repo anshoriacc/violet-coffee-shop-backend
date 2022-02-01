@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id',
         as: 'product'
       })
+      payment_item.belongsTo(models.payment, {
+        sourceKey: 'payment_id',
+        foreignKey: 'id',
+        as: 'payment'
+      })
     }
   }
   payment_item.init({
