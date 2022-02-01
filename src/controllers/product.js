@@ -4,6 +4,7 @@ const pagination = require("../helper/pagination");
 // const productModel = require("../models/product");
 const model = require("../models/sequelize/index");
 const { Op } = require("sequelize");
+const dayjs = require("dayjs");
 
 // const createProduct = async (req, res) => {
 //   const image = `${process.env.IMAGE_HOST}${req.file.filename}`;
@@ -57,6 +58,14 @@ const createProduct = async (req, res) => {
   body.price = parseInt(body.price);
   try {
     const result = await model.products.create(body);
+    if (body.variants) {
+      await Promise.all(body.variants.map( async (variant) => {
+        return await model.variants.create({
+          product_id: result.id,
+          variant
+        });
+      }));
+    }
     return response(res, {
       data: result,
       status: 200,
@@ -127,6 +136,15 @@ const updateProduct = async (req, res) => {
         id: productId,
       },
     });
+    if (body.variants) {
+      await model.variants.destroy({where:{product_id:productId}})
+      await Promise.all(body.variants.map( async (variant) => {
+        return await model.variants.create({
+          product_id: productId,
+          variant
+        });
+      }));
+    }
     return response(res, {
       data: null,
       status: 200,
@@ -166,24 +184,44 @@ const deleteById = async (req, res) => {
 };
 
 const getAllProduct = async (req, res) => {
-  const { per_page, page, search, category } = req.query;
+  const { per_page, page, search, category, code_promo } = req.query;
   let { sortBy, sort} = req.query;
   const where = {};
+  const whereOr = [];
   const limit = parseInt(per_page ?? 10);
   const offset = parseInt((page ?? 1) * limit) - limit;
+  const now = dayjs().format('YYYY-MM-DD HH:mm:ss');
+  if (code_promo) {
+    whereOr.push({[Op.and]: [
+      {
+        code_promo
+      },
+      {
+        start_promo: {
+        [Op.lte]: now
+      }
+    },
+    {
+      end_promo: {
+      [Op.gte]: now
+    }
+  }
+]}) 
+  } else {
+    where.code_promo = null;
+  }
+
   if (search) {
-    where[Op.or] = [
-      {
-        name: {
-          [Op.like]: `%${search}%`,
-        },
+    whereOr.push({
+      name: {
+        [Op.like]: `%${search}%`,
       },
-      {
-        category: {
-          [Op.like]: `%${search}%`,
-        },
+    },
+    {
+      category: {
+        [Op.like]: `%${search}%`,
       },
-    ];
+    }) 
   }
   if (category) {
     if (category === 'favorite') {
@@ -193,9 +231,18 @@ const getAllProduct = async (req, res) => {
       where.category = category;
     }
   }
+  if (whereOr.length !== 0) where[Op.or] = whereOr
+  console.log(where);
   try {
     const result = await model.products.findAndCountAll({
       where,
+      include:[
+        {
+          model:model.variants,
+          as:"variants",
+          required: false,
+        }
+      ],
       limit: limit,
       offset: offset,
       order: [[sortBy ?? 'createdAt', sort ?? 'DESC']]

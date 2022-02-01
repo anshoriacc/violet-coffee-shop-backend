@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   users.init({
     email: DataTypes.STRING,
+    password: DataTypes.STRING,
     phone: DataTypes.STRING,
     delivery_adress: DataTypes.STRING,
     gender: DataTypes.STRING,
@@ -23,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     first_name: DataTypes.STRING,
     last_name: DataTypes.STRING,
     role: DataTypes.STRING,
-    createdAt:{
+    createdAt: {
       field: 'created_at',
       type: DataTypes.DATE
     },
-    updatedAt:{
+    updatedAt: {
       field: 'updated_at',
       type: DataTypes.DATE
     }

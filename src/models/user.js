@@ -19,7 +19,7 @@ const editUser = (userInfo, body, file) => {
         const { id } = userInfo
         const checkEmail = `SELECT * FROM users WHERE email = ?`;
         let getUserInfo = {};
-        db.query('SELECT * FROM users WHERE id = ?',[id],(err, result) => {
+        db.query('SELECT * FROM users WHERE id = ?', [id], (err, result) => {
             getUserInfo = result[0];
         })
         db.query(checkEmail, [email], (err, result) => {
