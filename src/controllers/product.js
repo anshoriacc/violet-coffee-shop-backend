@@ -128,8 +128,13 @@ const updateProduct = async (req, res) => {
     ? `${process.env.IMAGE_HOST}${req.file.filename}`
     : null;
   const body = req.body;
-  body.image = image;
-  body.price = parseInt(body.price);
+  if(image !== null){
+    body.image = image;
+  }
+  if(body.price){
+
+    body.price = parseInt(body.price);
+  }
   try {
     await model.products.update(body, {
       where: {
