@@ -23,9 +23,11 @@ const createPayment = async (req, res) => {
       products.map(async (product) => {
         const additionalPrice = additionalPriceLIst[product.size] ?? 0;
         const getProduct = await model.products.findByPk(product.product_id);
+        const discount = getProduct.discount/100;
         if (getProduct) {
           await getProduct.update({popular_score: getProduct.popular_score + 1})
-          subTotal += getProduct.price * product.quantity + additionalPrice;
+          const calculatePrice = getProduct.price * product.quantity + additionalPrice 
+          subTotal += calculatePrice - (calculatePrice * discount);
         }
         return getProduct;
       })
@@ -82,7 +84,7 @@ const getPaymentByUserId = async (req, res) => {
             {
             model: model.products,
             as: 'product',
-            attributes: ['id', 'name', 'price', 'image']
+            attributes: ['id', 'name', 'price', 'image', 'discount']
           }
         ]
         }

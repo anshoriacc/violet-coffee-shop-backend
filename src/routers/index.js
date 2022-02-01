@@ -5,6 +5,7 @@ const userRouter = require('./user')
 const productRouter = require('./product.js')
 const paymentRouter = require('./payment.js')
 const testimonieRouter = require('./testimonie.js')
+const promoRouter = require('./promo.js')
 // const historyRouter = require('./history.js')
 
 mainRouter.use('/payment',paymentRouter)
@@ -12,6 +13,7 @@ mainRouter.use('/auth', authRouter)
 mainRouter.use('/user', userRouter)
 mainRouter.use('/product', productRouter)
 mainRouter.use('/testimonie', testimonieRouter)
+mainRouter.use('/promo', promoRouter)
 // mainRouter.use('/history',historyRouter)
 
 module.exports = mainRouter

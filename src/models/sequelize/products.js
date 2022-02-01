@@ -9,10 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    // static associate(models) {
-    //   // define association here
-      
-    // }
+    static associate(models) {
+      // define association here
+      products.hasMany(models.variants,{
+        foreignKey : "product_id",
+        as: "variants"
+      })
+    }
   }
   products.init({
     name: DataTypes.STRING,
@@ -23,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
     end_delivery: DataTypes.STRING,
     image: DataTypes.STRING,
     category: DataTypes.STRING,
+    discount: DataTypes.INTEGER,
+    start_promo: DataTypes.DATE,
+    end_promo:DataTypes.DATE,
+    code_promo: DataTypes.STRING,
     size_1: {
       type:DataTypes.ENUM,
       values: ['R', '250gr'],
