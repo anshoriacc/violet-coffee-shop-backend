@@ -80,13 +80,13 @@ const createPayment = async (req, res) => {
     return response(res, {
       data: {resMidtrans,payment},
       status: 200,
-      massage: "create payment succes",
+      message: "create payment succes",
     });
     // httpResponse(res, await services.createUser(req.body));
   } catch (error) {
     return response(res, {
       status: 500,
-      massage: "Terjadi Error",
+      message: "Terjadi Error",
       error,
     });
   }
