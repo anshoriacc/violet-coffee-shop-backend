@@ -2,6 +2,29 @@ const { response } = require("../helper/response");
 const pagination = require("../helper/pagination");
 // const productModel = require("../models/product");
 const model = require("../models/sequelize/index");
+const dayjs = require("dayjs");
+const midtransClient = require("midtrans-client");
+
+let coreApi = new midtransClient.CoreApi({
+  isProduction: false,
+  serverKey: process.env.SERVER_KEY_MIDTRANS,
+  clientKey: process.env.CLIENT_KEY_MIDTRANS,
+});
+
+const paymentMidtrans = async (total_price, bank, order_id) => {
+  const parameter = {
+    payment_type: "bank_transfer",
+    transaction_details: {
+      gross_amount: parseInt(total_price),
+      order_id: order_id,
+    },
+    bank_transfer: {
+      bank: bank,
+    },
+  };
+  return await coreApi.charge(parameter);
+};
+
 const additionalPriceLIst = {
   R: 0,
   L: 2000,
@@ -14,8 +37,9 @@ const shippingPrice = 10000;
 const taxPercent = 0.1;
 
 const createPayment = async (req, res) => {
-  const { products, delivery_method, set_time } = req.body;
+  const { products, delivery_method, set_time,bank } = req.body;
   const {id} = req.userInfo;
+  const order_id = `COFFEE-SHOP-PAYMENT-${dayjs().format("YYm-mss-DD")}`;
   let subTotal = 0;
 
   try {
@@ -34,12 +58,14 @@ const createPayment = async (req, res) => {
     );
     const shipping = delivery_method === "home_delivery" ? shippingPrice : 0;
     const tax = subTotal * taxPercent;
+    const total_price=  subTotal + shipping + tax
     const payment = await model.payment.create({
       sub_total: subTotal,
       total_price: subTotal + shipping + tax,
       tax,
       user_id: id, // hardcode dlu
       set_time,
+      order_id,
     });
     await Promise.all(
       products.map((product) => {
@@ -50,8 +76,9 @@ const createPayment = async (req, res) => {
         });
       })
     );
+    const resMidtrans = await paymentMidtrans(total_price, bank, order_id);
     return response(res, {
-      data: payment,
+      data: {resMidtrans,payment},
       status: 200,
       massage: "create payment succes",
     });
@@ -64,6 +91,30 @@ const createPayment = async (req, res) => {
     });
   }
 };
+
+const handleMidtrans = async (req, res) => {
+  const { order_id, transaction_status } = req.body;
+  try {
+    const result = await model.payment.update(
+      { 
+        status_order: transaction_status,
+       },
+      { where: { order_id } }
+    );
+    return response(res, {
+      data: result,
+      status: 200,
+      message: "payment finish ",
+    });
+  } catch (error) {
+    return response(res, {
+      status: 500,
+      message: "Terjadi Error",
+      error,
+    });
+  }
+};
+
 const getPaymentByUserId = async (req, res) => {
   const { id } = req.userInfo;
   console.log(req.userInfo);
@@ -212,5 +263,6 @@ module.exports = {
   getPaymentByUserId,
   updatePayment,
   deleteById,
-  getPaymentById
+  getPaymentById,
+  handleMidtrans
 };

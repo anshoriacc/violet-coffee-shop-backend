@@ -26,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     adress_detail: DataTypes.STRING,
     sub_total: DataTypes.INTEGER,
     shipping: DataTypes.INTEGER, 
+    order_id: DataTypes.STRING,
+    status_order: DataTypes.STRING,
     createdAt:{
       field: 'created_at',
       type: DataTypes.DATE

@@ -8,6 +8,7 @@ paymentRouter
     .patch('/:paymentId',checkToken,paymentController.updatePayment)
     .get('/payment-userId',checkToken,  paymentController.getPaymentByUserId)
     .get('/payment-detail/:id',checkToken,paymentController.getPaymentById)
+    .post('/handlemidtrans',paymentController.handleMidtrans)
     // .get('/',  paymentController.getAllProduct)
     .delete('/:paymentId',checkToken,  paymentController.deleteById)
 
