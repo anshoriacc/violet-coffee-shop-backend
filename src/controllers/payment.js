@@ -131,24 +131,26 @@ const getPaymentByUserId = async (req, res) => {
     // });
 
     const paymentItems = await model.payment_item.findAndCountAll({
+      where: {
+        '$payment.user_id$': id,
+      },
       include: [
         {
-        model: model.products,
-        as: 'product',
-        attributes: ['id', 'name', 'price', 'image', 'discount']
+          model: model.products,
+          as: 'product',
+          attributes: ['id', 'name', 'price', 'image', 'discount'],
+          required: false,
       },
       {
         model: model.payment,
         as: 'payment',
-        where: {
-        user_id: id,
-        },
         attributes: []
       }
     ],
       limit:limit,
       offset:offset,
     })
+    console.log(paymentItems);
 
     const buffer = await paymentItems.rows.map((payment) => {
       const container ={...payment.dataValues};
@@ -165,14 +167,14 @@ const getPaymentByUserId = async (req, res) => {
       data: buffer,
       total: paymentItems.count,
       status: 200,
-      massage: "get payment by user id succes",
+      message: "get payment by user id succes",
       limit, offset,
       query: req.query
     });
   } catch (error) {
     return pagination(res, req, {
       status: 500,
-      massage: "Terjadi Error",
+      message: "Terjadi Error",
       error,
     });
   }
