@@ -4,6 +4,7 @@ const pagination = require("../helper/pagination");
 const model = require("../models/sequelize/index");
 const dayjs = require("dayjs");
 const midtransClient = require("midtrans-client");
+const { Op } = require("sequelize");
 
 let coreApi = new midtransClient.CoreApi({
   isProduction: false,
@@ -258,11 +259,63 @@ const updatePayment = async (req, res) => {
     });
   }
 };
+
+const getDataDashboard =async(req,res)=>{
+//  const {userId}=req.params
+const days = [
+  'Sunday',
+  'Monday',
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+]
+// const dateNow= dayjs().startOf('week').format("DD-MM-YYYY")
+// const nextDate= dayjs().endOf('week').format("DD-MM-YYYY")
+// console.log("start",dateNow)
+// console.log("end",nextDate);
+ try {
+   
+const result = await Promise.all(days.map(async(day, index) => {
+  const getDay = dayjs().day(index);
+
+  const total = await model.payment.sum("total_price", {
+    where: {
+      created_at: {
+        [Op.between]: [
+          getDay.startOf('day').format("YYYY-MM-DD HH:mm:ss"),
+          getDay.endOf('day').format("YYYY-MM-DD HH:mm:ss"),
+        ]
+      }
+  },
+  });
+
+  return {day, total:total ?? 0};
+  
+}));
+ return response(res, {
+  data: {
+    result
+  },
+  status: 200,
+  message: "get dashboard success",
+});
+   
+ } catch (error) {
+  return response(res, {
+    status: 500,
+    message: "Terjadi Error",
+    error,
+  });
+ }
+}
 module.exports = {
   createPayment,
   getPaymentByUserId,
   updatePayment,
   deleteById,
   getPaymentById,
-  handleMidtrans
+  handleMidtrans,
+  getDataDashboard
 };
