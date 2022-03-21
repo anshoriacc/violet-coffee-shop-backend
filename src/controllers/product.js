@@ -107,6 +107,13 @@ const getProductById = async (req, res) => {
       where: {
         id: productId,
       },
+      include: [
+        {
+          model: model.variants,
+          as: 'variants',
+          attributes: ['id',"variant"],
+          required: false,
+      },]
     });
     return response(res, {
       data: result,
@@ -168,6 +175,11 @@ const updateProduct = async (req, res) => {
 const deleteById = async (req, res) => {
   const { productId } = req.params;
   try {
+    await model.variants.destroy({
+      where: {
+        product_id: productId,
+      },
+    });
     await model.payment_item.destroy({
       where: {
         product_id: productId,
@@ -181,7 +193,7 @@ const deleteById = async (req, res) => {
     return response(res, {
       data: result,
       status: 200,
-      message: "get product by id succes",
+      message: "delete product by id succes",
     });
     // httpResponse(res, await services.createUser(req.body));
   } catch (error) {
