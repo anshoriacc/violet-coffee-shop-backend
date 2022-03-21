@@ -69,13 +69,13 @@ const createProduct = async (req, res) => {
     return response(res, {
       data: result,
       status: 200,
-      massage: "sign up succes",
+      message: "create product succes",
     });
     // httpResponse(res, await services.createUser(req.body));
   } catch (error) {
     return response(res, {
       status: 500,
-      massage: "Terjadi Error",
+      message: "Terjadi Error",
       error,
     });
   }
@@ -168,6 +168,11 @@ const updateProduct = async (req, res) => {
 const deleteById = async (req, res) => {
   const { productId } = req.params;
   try {
+    await model.payment_item.destroy({
+      where: {
+        product_id: productId,
+      },
+    });
     const result = await model.products.destroy({
       where: {
         id: productId,
@@ -176,13 +181,13 @@ const deleteById = async (req, res) => {
     return response(res, {
       data: result,
       status: 200,
-      massage: "get product by id succes",
+      message: "get product by id succes",
     });
     // httpResponse(res, await services.createUser(req.body));
   } catch (error) {
     return response(res, {
       status: 500,
-      massage: "Terjadi Error",
+      message: "Terjadi Error",
       error,
     });
   }
