@@ -1,9 +1,24 @@
-# Violet Coffee Shop - Backend
+<br/>
 
-## ☕
+<div align="center">
+	<img height="200" src="https://raw.githubusercontent.com/anshoriacc/violet-coffee-shop-backend/master/public/github-banner.png" alt="VioletCoffeeShop">
 
-![Banner](public/github-banner.png)
+[![express](https://img.shields.io/npm/v/express?label=express)](https://www.npmjs.com/package/express)
+[![sequelize](https://img.shields.io/npm/v/sequelize?label=sequelize)](https://www.npmjs.com/package/sequelize)
+[![mysql](https://img.shields.io/npm/v/mysql?label=mysql)](https://www.npmjs.com/package/mysql)
+[![jsonwebtoken](https://img.shields.io/npm/v/jsonwebtoken?label=jsonwebtoken)](https://www.npmjs.com/package/jsonwebtoken)
+[![bcrypt](https://img.shields.io/npm/v/bcrypt?label=bcrypt)](https://www.npmjs.com/package/bcrypt)
+[![cors](https://img.shields.io/npm/v/cors?label=cors)](https://www.npmjs.com/package/cors)
+[![multer](https://img.shields.io/npm/v/multer?label=multer)](https://www.npmjs.com/package/multer)
+[![dayjs](https://img.shields.io/npm/v/dayjs?label=dayjs)](https://www.npmjs.com/package/dayjs)
+[![midtrans-client](https://img.shields.io/npm/v/midtrans-client?label=midtrans-client)](https://www.npmjs.com/package/midtrans-client)
+[![nodemailer](https://img.shields.io/npm/v/nodemailer?label=nodemailer)](https://www.npmjs.com/package/nodemailer)
 
+<br/>
+
+</div>
+
+<br/>
 Violet coffee shop is a web application that can make it easier for customer to order food and beverages from coffee shop. Customer can simply register, login, see products, order, see order history, edit their profile, etc.
 
 ## Contents
@@ -15,7 +30,7 @@ Violet coffee shop is a web application that can make it easier for customer to 
 - [Related Projects](#related-projects)
 - [Contributors](#contributors)
 
-## Features
+## API Endpoint
 
 ### Public
 
@@ -42,7 +57,7 @@ Violet coffee shop is a web application that can make it easier for customer to 
 ## Packages Used
 
 - [express](https://www.npmjs.com/package/express)
-- [sequalize](https://www.npmjs.com/package/sequelize)
+- [sequelize](https://www.npmjs.com/package/sequelize)
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 - [mysql](https://www.npmjs.com/package/mysql)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
