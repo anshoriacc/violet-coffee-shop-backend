@@ -72,7 +72,7 @@ You may also see any lint errors in the console.
 
 ## Deployment
 
-<https://violet-coffee-shop.netlify.app/>
+<https://coffee-shop-back-end.herokuapp.com/>
 
 ## Related Projects
 
