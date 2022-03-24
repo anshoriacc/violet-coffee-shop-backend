@@ -23,8 +23,7 @@ Violet coffee shop is a web application that can make it easier for customer to 
 
 ## Contents
 
-- [Features](#features)
-- [Packages Used](#packages-used)
+- [API Endpoint](#api-endpoint)
 - [Run Application](#run-application)
 - [Deployment](#deployment)
 - [Related Projects](#related-projects)
@@ -54,24 +53,15 @@ Violet coffee shop is a web application that can make it easier for customer to 
 - Edit promo
 - Dashboard Admin
 
-## Packages Used
-
-- [express](https://www.npmjs.com/package/express)
-- [sequelize](https://www.npmjs.com/package/sequelize)
-- [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
-- [mysql](https://www.npmjs.com/package/mysql)
-- [bcrypt](https://www.npmjs.com/package/bcrypt)
-- [cors](https://www.npmjs.com/package/cors)
-- [multer](https://www.npmjs.com/package/multer)
-- [dayjs](https://www.npmjs.com/package/dayjs)
-- [midtrans-client](https://www.npmjs.com/package/midtrans-client)
-- [nodemailer](https://www.npmjs.com/package/midtrans-client)
-
 ## How to Run the Application
 
 ### 1. Clone this repository
 
-Clone this repository by run `$ git clone <this-repo-url>`.
+Clone this repository by run
+
+```
+$ git clone <this-repo-url>
+```
 
 ### 2. Download all packages
 
