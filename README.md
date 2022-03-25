@@ -1,3 +1,5 @@
+# Violet Coffee Shop - Backend
+
 <br/>
 
 <div align="center">
@@ -19,6 +21,7 @@
 </div>
 
 <br/>
+
 Violet coffee shop is a web application that can make it easier for customer to order food and beverages from coffee shop. Customer can simply register, login, see products, order, see order history, edit their profile, etc.
 
 ## Contents
@@ -57,15 +60,19 @@ Violet coffee shop is a web application that can make it easier for customer to 
 
 ### 1. Clone this repository
 
-Clone this repository by run
+Clone this repository by run the following code:
 
 ```
 $ git clone <this-repo-url>
 ```
 
-### 2. Download all packages
+### 2. Install dependency packages
 
-Download all dependency packages needed for the application in [Packages used](#packages-used)
+Install dependency packages by run the following code inside project folder:
+
+```
+$ npm install
+```
 
 ### 3. Run `npm start`
 
