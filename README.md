@@ -66,11 +66,11 @@ Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/product`
   | --- | --- |
   | search | `keyword for product (string)` |
   | sortBy | `sort product based by (string)` |
-  | sort | `ASC | DESC` |
+  | sort | `ASC \| DESC` |
   | code_promo | `type promo code (string)` |
   | per_page | `product you want to display per page (number)` |
   | page | `jump to page you want (number)` |
-  | category | `type category: coffee | non coffee | food` |
+  | category | `type category: coffee \| non coffee \| food` |
 
 #### Forgot Password
 
