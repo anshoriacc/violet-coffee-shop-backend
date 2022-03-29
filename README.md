@@ -123,7 +123,7 @@ You may also see any lint errors in the console.
 
 ## Postman Documentation
 
-[Postmaan documentation link](https://documenter.getpostman.com/view/15601945/UVeDrmm1)
+[Postman documentation link](https://documenter.getpostman.com/view/15601945/UVeDrmm1)
 
 ## Deployment
 
