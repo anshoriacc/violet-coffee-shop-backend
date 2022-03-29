@@ -28,6 +28,7 @@ Violet coffee shop is a web application that can make it easier for customer to 
 
 - [API Endpoint](#api-endpoint)
 - [Run Application](#run-application)
+- [Postman Documentation](#postman-documentation)
 - [Deployment](#deployment)
 - [Related Projects](#related-projects)
 - [Contributors](#contributors)
@@ -36,12 +37,39 @@ Violet coffee shop is a web application that can make it easier for customer to 
 
 ### Public
 
-- Login
-- Register
-- Forgot Password
-- Search product
-- Product's detail
-- Edit profile
+#### Login
+
+Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/auth/login`
+
+- Body
+  | Email | customer@gmail.com |
+  | Password | 112233 |
+
+#### Register
+
+Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/auth/signup`
+
+- Body
+  | Email | `type new email` |
+  | Password | `type password` |
+  | Phone | `your phone number` |
+
+Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/product`
+
+- Query `optional`
+  | search | `keyword for product (string)` |
+  | sortBy | `sort product based by (string)` |
+  | sort | `ASC | DESC` |
+  | code_promo | `type promo code (string)` |
+  | per_page | `product you want to display per page (number)` |
+  | page | `jump to page you want (number)` |
+  | category | `type category: coffee | non coffee | food` |
+
+#### Forgot Password
+
+#### Product's detail
+
+#### Edit profile
 
 ### Customer:
 
@@ -55,6 +83,8 @@ Violet coffee shop is a web application that can make it easier for customer to 
 - Add promo
 - Edit promo
 - Dashboard Admin
+
+For more detailed API Endpoints, please visit the [full postman documentation](#postman-documentation)
 
 ## How to Run the Application
 
@@ -82,13 +112,17 @@ Open [http://localhost:8000](http://localhost:8000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+## Postman Documentation
+
+[Postmaan documentation link](https://documenter.getpostman.com/view/15601945/UVeDrmm1)
+
 ## Deployment
 
-<https://coffee-shop-back-end.herokuapp.com/>
+[Heroku deploy link](https://coffee-shop-back-end.herokuapp.com/)
 
 ## Related Projects
 
-`Violet Coffee Shop - Frontend` <https://github.com/anshoriacc/violet-coffee-shop-frontend>
+[Violet Coffee Shop - Frontend](https://github.com/anshoriacc/violet-coffee-shop-frontend)
 
 ## Contributors
 
