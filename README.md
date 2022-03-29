@@ -59,6 +59,8 @@ Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/auth/signup`
   | Password | `type password` |
   | Phone | `your phone number` |
 
+#### Search Product
+
 Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/product`
 
 - Query `optional`
