@@ -42,6 +42,9 @@ Violet coffee shop is a web application that can make it easier for customer to 
 Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/auth/login`
 
 - Body
+  | KEY | VALUE |
+  | --- | --- |
+  | Password | `112233` |
   | Email | customer@gmail.com |
   | Password | 112233 |
 
@@ -50,6 +53,8 @@ Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/auth/login`
 Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/auth/signup`
 
 - Body
+  | KEY | VALUE |
+  | --- | --- |
   | Email | `type new email` |
   | Password | `type password` |
   | Phone | `your phone number` |
@@ -57,6 +62,8 @@ Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/auth/signup`
 Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/product`
 
 - Query `optional`
+  | KEY | VALUE |
+  | --- | --- |
   | search | `keyword for product (string)` |
   | sortBy | `sort product based by (string)` |
   | sort | `ASC | DESC` |
