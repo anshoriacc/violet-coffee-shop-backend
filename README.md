@@ -39,40 +39,39 @@ Violet coffee shop is a web application that can make it easier for customer to 
 
 #### Login
 
-Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/auth/login`
+Endpoint: `/auth/login`
 
 - Body
-  | KEY | VALUE |
+  | KEY | TYPEDATA |
   | --- | --- |
-  | Password | `112233` |
-  | Email | customer@gmail.com |
-  | Password | 112233 |
+  | Email | `string` |
+  | Password | `string` |
 
 #### Register
 
-Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/auth/signup`
+Endpoint: `/auth/signup`
 
 - Body
-  | KEY | VALUE |
+  | KEY | TYPEDATA |
   | --- | --- |
-  | Email | `type new email` |
-  | Password | `type password` |
-  | Phone | `your phone number` |
+  | Email | `string` |
+  | Password | `string` |
+  | Phone | `string` |
 
 #### Search Product
 
-Endpoint: `https://coffee-shop-back-end.herokuapp.com/api/product`
+Endpoint: `/product`
 
 - Query `optional`
-  | KEY | VALUE |
+  | KEY | TYPEDATA |
   | --- | --- |
-  | search | `keyword for product (string)` |
-  | sortBy | `sort product based by (string)` |
-  | sort | `ASC \| DESC` |
-  | code_promo | `type promo code (string)` |
-  | per_page | `product you want to display per page (number)` |
-  | page | `jump to page you want (number)` |
-  | category | `type category: coffee \| non coffee \| food` |
+  | search | `string` |
+  | sortBy | `string` |
+  | sort | `string` |
+  | code_promo | `string` |
+  | per_page | `number` |
+  | page | `number` |
+  | category | `string` |
 
 #### Forgot Password
 
