@@ -92,8 +92,6 @@ Endpoint: `/product`
 - Edit promo
 - Dashboard Admin
 
-For more detailed API Endpoints, please visit the [full postman documentation](#postman-documentation)
-
 ## How to Run the Application
 
 ### 1. Clone this repository
